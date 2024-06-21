@@ -1,18 +1,19 @@
 function add(numbers) {
-  if (numbers == "") {
+  if (numbers === "") {
     return 0;
-  } else if (numbers.length == 1) {
-    return parseInt(numbers);
-  } else if (numbers.includes("\n")) {
-    const arr = numbers.replace(/\n/g, ",");
-    const newarr = arr.split(",");
-    return newarr.reduce((acc, curr) => acc + parseInt(curr), 0);
-  } else {
-    if (numbers.includes("\n")) {
-    }
-    const arr = numbers.split(",");
-    return arr.reduce((acc, curr) => acc + parseInt(curr), 0);
   }
+
+  let delimiter = ",";
+  if (numbers.startsWith("//")) {
+    const delimiterIndx = numbers.indexOf("\n");
+    delimiter = numbers.substring(2, delimiterIndx);
+    numbers = numbers.substring(delimiterIndx + 1);
+  }
+
+  const regexDelimiter = new RegExp(`[${delimiter}\n]`, "g");
+  numbers = numbers.replace(regexDelimiter, ",");
+  const numArray = numbers.split(",");
+  return numArray.reduce((sum, num) => sum + parseInt(num), 0);
 }
 
 export default add;
