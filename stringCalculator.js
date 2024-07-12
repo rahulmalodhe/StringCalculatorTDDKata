@@ -1,4 +1,4 @@
-function add(numbers: string): number {
+function add(numbers){
   if (numbers === "") {
     return 0;
   }
@@ -11,6 +11,8 @@ function add(numbers: string): number {
   }
 
   const regexDelimiter = new RegExp(`[${delimiter}\n]`, "g");
+  console.log("regexDelimiter", regexDelimiter)
+
   numbers = numbers.replace(regexDelimiter, ",");
 
   const numArray = numbers.split(",");
@@ -20,7 +22,16 @@ function add(numbers: string): number {
     throw new Error(`negative numbers not allowed: ${negatives.join(",")}`);
   }
 
-  return numArray.reduce((sum, num) => sum + parseInt(num), 0);
+  let finalOutput;
+
+  if(regexDelimiter.source.includes("*")){
+    finalOutput = numArray.reduce((sum, num) =>
+      sum * parseInt(num), 1)
+  }else{
+    finalOutput = numArray.reduce((sum, num) => sum + parseInt(num), 0)
+  }
+
+  return finalOutput
 }
 
 export default add;

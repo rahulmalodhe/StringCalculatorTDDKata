@@ -37,3 +37,4 @@ test("should throw an exception for negative numbers", () => {
     add("1,-2,-3,4");
   }).toThrow("negative numbers not allowed: -2,-3");
 });
+
